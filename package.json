@@ -1,0 +1,38 @@
+{
+  "name": "bee",
+  "version": "0.0.0",
+  "description": "Migration and seed tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava"
+  },
+  "bin": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xarples/bee.git"
+  },
+  "keywords": [
+    "migrations",
+    "seed",
+    "tool"
+  ],
+  "author": "xarples",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xarples/bee/issues"
+  },
+  "homepage": "https://github.com/xarples/bee#readme",
+  "dependencies": {
+    "handlebars": "^4.7.6"
+  },
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^4.1.1",
+    "@types/node": "^13.13.2",
+    "@types/umzug": "^2.2.3",
+    "@types/yargs": "^15.0.4",
+    "prettier": "2.0.5",
+    "rollup": "^2.7.2",
+    "ts-node": "^8.9.0",
+    "typescript": "^3.8.3"
+  }
+}

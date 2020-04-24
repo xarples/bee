@@ -1,0 +1,34 @@
+{
+  "name": "@xarples/bee-engine",
+  "version": "0.0.0",
+  "description": "Migration and seed tool",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "ava"
+  },
+  "bin": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xarples/bee.git"
+  },
+  "keywords": [
+    "migrations",
+    "seed",
+    "tool"
+  ],
+  "author": "xarples",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xarples/bee/issues"
+  },
+  "homepage": "https://github.com/xarples/bee#readme",
+  "dependencies": {
+    "sequelize": "^5.21.7",
+    "sqlite3": "^4.1.1",
+    "umzug": "^2.3.0"
+  },
+  "devDependencies": {
+    "typescript": "^3.8.3"
+  }
+}
