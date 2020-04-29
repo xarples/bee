@@ -2,6 +2,7 @@
   "name": "bee",
   "version": "0.0.0",
   "description": "Migration and seed tool",
+  "private": true,
   "main": "index.js",
   "scripts": {
     "test": "ava"
