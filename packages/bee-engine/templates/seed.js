@@ -1,6 +1,6 @@
-;`import { define } from '../lib'
+const { define } = require('@xarples/bee-engine')
 
-export default define({
+module.exports = define({
   async up(queryInterface, dataTypes) {
     await queryInterface.createTable('table_name', {
       id: {
@@ -11,9 +11,7 @@ export default define({
       },
     })
   },
-
   async down(queryInterface) {
     await queryInterface.dropTable('table_name')
   },
 })
-`

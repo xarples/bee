@@ -1,16 +1,10 @@
-import BeeEngine from './lib/engine'
-import define from './lib/define'
-import { IBeeEngineOptions } from './types'
-
-export { IBeeEngineOptions }
+import * as lib from './lib'
 
 export * from './lib'
 
-export function createClient(options: IBeeEngineOptions) {
-  return new BeeEngine(options)
-}
+export { IEngineOptions } from './lib'
 
 export default {
-  createClient,
-  define,
+  createEngine: lib.createEngine,
+  define: lib.define,
 }

@@ -1,9 +1,10 @@
 import path from 'path'
-import bee, { IBeeEngineOptions } from '@xarples/bee-engine'
+import bee, { IEngineOptions } from '@xarples/bee-engine'
 import { Argv, Arguments } from 'yargs'
 
-interface IOptions extends IBeeEngineOptions {
+interface IOptions {
   to?: string
+  bee: IEngineOptions
 }
 
 export const command = 'down [to]'
@@ -27,22 +28,16 @@ export const builder = function (yargs: Argv) {
 }
 
 export const handler = async function (argv: Arguments<IOptions>) {
-  const sequelize = argv.sequelize
-  const umzug = argv.umzug || {
-    migrations: {
-      path: path.resolve(process.cwd(), 'seeds'),
-    },
+  const engine = bee.createEngine({
+    ...argv.bee,
+    migrationsPath:
+      argv.bee.migrationsPath || path.resolve(process.cwd(), 'seeds'),
     storageOptions: {
       path: path.resolve(process.cwd(), 'bee_seeds.json'),
     },
-  }
-
-  const beeEngine = bee.createClient({
-    sequelize,
-    umzug,
   })
 
   const options = argv.to ? { to: argv.to } : undefined
 
-  await beeEngine.revert(options)
+  await engine.revert(options)
 }

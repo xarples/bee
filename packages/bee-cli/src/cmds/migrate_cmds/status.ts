@@ -1,10 +1,15 @@
-import path from 'path'
-import bee, { IBeeEngineOptions } from '@xarples/bee-engine'
+import bee, { IEngineOptions } from '@xarples/bee-engine'
 import { Argv, Arguments } from 'yargs'
 
-interface IOptions extends IBeeEngineOptions {
+interface IFilter {
+  name: 'executed' | 'pending'
+  active: boolean | undefined
+}
+
+interface IOptions {
   pending?: boolean
   executed?: boolean
+  bee: IEngineOptions
 }
 
 export const command = 'status [pending] [executed]'
@@ -31,29 +36,16 @@ export const builder = function (yargs: Argv) {
 }
 
 export const handler = async function (argv: Arguments<IOptions>) {
-  const sequelize = argv.sequelize
-  const umzug = argv.umzug || {
-    migrations: {
-      path: path.resolve(process.cwd(), 'migrations'),
-    },
-    storageOptions: {
-      path: path.resolve(process.cwd(), 'bee_migrations.json'),
-    },
-  }
+  const engine = bee.createEngine(argv.bee)
 
-  const beeEngine = bee.createClient({
-    sequelize,
-    umzug,
-  })
+  const filters: IFilter[] = [
+    { name: 'pending', active: argv.pending },
+    { name: 'executed', active: argv.executed },
+  ]
 
-  if (argv.pending) {
-    const migrations = await beeEngine.listPending()
-    console.log(migrations)
-  } else if (argv.executed) {
-    const migrations = await beeEngine.listExecuted()
-    console.log(migrations)
-  } else {
-    const migrations = await beeEngine.listAll()
-    console.log(migrations)
-  }
+  const defaultFilter = { name: undefined, active: true }
+  const filter = filters.find((filter) => filter.active) || defaultFilter
+  const migrations = await engine.list(filter.name)
+
+  console.log(migrations)
 }

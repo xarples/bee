@@ -4,7 +4,7 @@ import path from 'path'
 import fs from 'fs'
 import * as yargs from 'yargs'
 import findUp from 'find-up'
-import { IBeeEngineOptions } from '@xarples/bee-engine'
+import { IEngineOptions } from '@xarples/bee-engine'
 
 const config = getConfig()
 
@@ -21,16 +21,24 @@ function main() {
     .version('0.0.0').argv
 }
 
-function getConfig(): IBeeEngineOptions {
+function getConfig(): { bee: IEngineOptions } {
   const configPath = findUp.sync(['.beerc', '.beerc.json', '.beerc.js'])
 
   if (!configPath) {
     return {
-      sequelize: {
+      bee: {
+        database: undefined,
+        username: undefined,
+        password: undefined,
+        host: 'localhost',
         dialect: 'sqlite',
+        migrationStorage: 'json',
+        migrationsPath: path.resolve(process.cwd(), 'migrations'),
         storage: path.resolve(process.cwd(), 'db.sqlite'),
+        storageOptions: {
+          path: path.resolve(process.cwd(), 'bee_migrations.json'),
+        },
       },
-      umzug: undefined,
     }
   }
 
