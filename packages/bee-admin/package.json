@@ -1,7 +1,7 @@
 {
-  "name": "bee",
+  "name": "@xarples/bee-admin",
   "version": "0.0.0",
-  "description": "Migration and seed tool",
+  "description": "",
   "private": true,
   "main": "index.js",
   "scripts": {
@@ -24,19 +24,7 @@
   },
   "homepage": "https://github.com/xarples/bee#readme",
   "dependencies": {
-    "@types/express": "^4.17.6",
-    "handlebars": "^4.7.6"
-  },
-  "devDependencies": {
-    "@rollup/plugin-typescript": "^4.1.1",
-    "@types/ncp": "^2.0.3",
-    "@types/node": "^13.13.2",
-    "@types/umzug": "^2.2.3",
-    "@types/yargs": "^15.0.4",
-    "nodemon": "^2.0.3",
-    "prettier": "2.0.5",
-    "rollup": "^2.7.2",
-    "ts-node": "^8.9.1",
-    "typescript": "^3.8.3"
+    "@xarples/bee-server": "*",
+    "express": "^4.17.1"
   }
 }

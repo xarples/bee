@@ -5,10 +5,10 @@ export default function createServer(options: IEngineOptions) {
   const app = express()
   const engine = bee.createEngine(options)
 
-  app.get('/init', (req, res) => {
+  app.get('/init', (_, res) => {
     engine.generate({
-      fileName: req.body.fileName,
-      outputPath: req.body.outputPath,
+      fileName: '',
+      outputPath: '.',
       template: 'init',
     })
 

@@ -2,9 +2,10 @@
   "name": "@xarples/bee-server",
   "version": "0.0.0",
   "description": "",
-  "main": "dist/index.js",
+  "main": "dist/lib/index.js",
   "scripts": {
     "build": "tsc",
+    "dev": "nodemon",
     "test": "ava"
   },
   "bin": "",
