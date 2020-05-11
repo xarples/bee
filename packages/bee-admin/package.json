@@ -5,18 +5,18 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "test": "ava"
+    "dev": "nodemon",
+    "build": "nuxt-ts build; tsc --project server/tsconfig.json",
+    "generate": "nuxt-ts generate",
+    "start": "NODE_ENV=production node ./dist/server/index.js",
+    "lint": "eslint --ext .ts,.js,.vue ."
   },
   "bin": "",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/xarples/bee.git"
   },
-  "keywords": [
-    "migrations",
-    "seed",
-    "tool"
-  ],
+  "keywords": [],
   "author": "xarples",
   "license": "MIT",
   "bugs": {
@@ -24,7 +24,13 @@
   },
   "homepage": "https://github.com/xarples/bee#readme",
   "dependencies": {
-    "@xarples/bee-server": "*",
-    "express": "^4.17.1"
+    "@nuxt/typescript-runtime": "^0.4.6",
+    "@xarples/wolfi-nuxt": "^0.0.24-alpha.0",
+    "nuxt": "^2.12.2"
+  },
+  "devDependencies": {
+    "@nuxt/types": "^0.7.5",
+    "@nuxt/typescript-build": "^0.6.6",
+    "@nuxtjs/eslint-config-typescript": "^1.0.2"
   }
 }
