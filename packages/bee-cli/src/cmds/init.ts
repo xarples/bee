@@ -17,11 +17,6 @@ export const builder = function (yargs: Argv) {
 export const handler = function (argv: Arguments<IOptions>) {
   const engine = bee.createEngine({
     ...argv.bee,
-    migrationsPath:
-      argv.bee.migrationsPath || path.resolve(process.cwd(), 'seeds'),
-    storageOptions: {
-      path: path.resolve(process.cwd(), 'bee_seeds.json'),
-    },
   })
 
   engine.generate({

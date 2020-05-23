@@ -32,10 +32,15 @@ function getConfig(): { bee: IEngineOptions } {
         password: undefined,
         host: 'localhost',
         dialect: 'sqlite',
-        migrationStorage: 'json',
-        migrationsPath: path.resolve(process.cwd(), 'migrations'),
         storage: path.resolve(process.cwd(), 'db.sqlite'),
-        storageOptions: {
+        migrationsPath: path.resolve(process.cwd(), 'migrations'),
+        migrationStorage: 'json',
+        migrationStorageOptions: {
+          path: path.resolve(process.cwd(), 'bee_migrations.json'),
+        },
+        seedsPath: path.resolve(process.cwd(), 'seeds'),
+        seedStorage: 'json',
+        seedStorageOptions: {
           path: path.resolve(process.cwd(), 'bee_migrations.json'),
         },
       },

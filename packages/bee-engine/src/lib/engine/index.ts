@@ -1,3 +1,4 @@
+import path from 'path'
 import { DataTypes } from 'sequelize'
 import {
   Storage,
@@ -22,7 +23,15 @@ export interface IEngineOptions {
   storage?: string
   migrationStorage?: 'json' | 'sequelize' | 'mongodb' | Storage | undefined
   migrationsPath?: string
-  storageOptions?:
+  migrationStorageOptions?:
+    | Object
+    | JSONStorageOptions
+    | SequelizeStorageOptions
+    | MongoDBStorageOptions
+    | undefined
+  seedsPath?: string
+  seedStorage?: 'json' | 'sequelize' | 'mongodb' | Storage | undefined
+  seedStorageOptions?:
     | Object
     | JSONStorageOptions
     | SequelizeStorageOptions
@@ -40,22 +49,42 @@ export default function createEngine(options: IEngineOptions) {
     storage: options.storage,
   })
 
-  const umzug = setupUmzug({
+  const migrationUmzug = setupUmzug({
     migrations: {
       params: [sequelize.getQueryInterface(), DataTypes],
-      path: options.migrationsPath,
+      path: options.migrationsPath || path.resolve(process.cwd(), 'migrations'),
     },
     storage: options.migrationStorage || 'sequelize',
-    storageOptions: options.storageOptions || {
+    storageOptions: options.migrationStorageOptions || {
       sequelize,
       tableName: 'bee_migrations',
     },
   })
 
+  const seedUmzug = setupUmzug({
+    migrations: {
+      params: [sequelize.getQueryInterface(), DataTypes],
+      path: options.seedsPath || path.resolve(process.cwd(), 'seeds'),
+    },
+    storage: options.seedStorage || 'sequelize',
+    storageOptions: options.seedStorageOptions || {
+      sequelize,
+      tableName: 'bee_seeds',
+    },
+  })
+
   return {
-    run: run(umzug),
-    revert: revert(umzug),
-    list: list(umzug),
+    options,
     generate,
+    migrations: {
+      run: run(migrationUmzug),
+      revert: revert(migrationUmzug),
+      list: list(migrationUmzug),
+    },
+    seeds: {
+      run: run(seedUmzug),
+      revert: revert(seedUmzug),
+      list: list(seedUmzug),
+    },
   }
 }

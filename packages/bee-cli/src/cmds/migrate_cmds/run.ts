@@ -28,8 +28,7 @@ export const builder = function (yargs: Argv) {
 
 export const handler = async function (argv: Arguments<IOptions>) {
   const engine = bee.createEngine(argv.bee)
-
   const options = argv.to ? { to: argv.to } : undefined
 
-  await engine.run(options)
+  await engine.migrations.run(options)
 }

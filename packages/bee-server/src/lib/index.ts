@@ -1,4 +1,4 @@
-import createServer from './server'
+import createServer from './createServer'
 
 const bee = {
   createServer,

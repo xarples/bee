@@ -37,7 +37,6 @@ export const builder = function (yargs: Argv) {
 
 export const handler = async function (argv: Arguments<IOptions>) {
   const engine = bee.createEngine(argv.bee)
-
   const filters: IFilter[] = [
     { name: 'pending', active: argv.pending },
     { name: 'executed', active: argv.executed },
@@ -45,7 +44,7 @@ export const handler = async function (argv: Arguments<IOptions>) {
 
   const defaultFilter = { name: undefined, active: true }
   const filter = filters.find((filter) => filter.active) || defaultFilter
-  const migrations = await engine.list(filter.name)
+  const migrations = await engine.migrations.list(filter.name)
 
   console.log(migrations)
 }

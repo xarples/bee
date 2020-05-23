@@ -5,6 +5,6 @@ export interface IDefineOptions {
   down: (queryInterface: QueryInterface, dataTypes: typeof DataTypes) => void
 }
 
-export default function define(options: IDefineOptions): IDefineOptions {
+export default function defineUpDown(options: IDefineOptions): IDefineOptions {
   return options
 }

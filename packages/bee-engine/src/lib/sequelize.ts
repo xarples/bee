@@ -7,5 +7,5 @@ export default function setupSequelize(options: Options) {
     sequelize = new Sequelize(options)
   }
 
-  return sequelize
+  return new Sequelize(options)
 }

@@ -1,6 +1,6 @@
-const { define } = require('@xarples/bee-engine')
+const { defineUpDown } = require('@xarples/bee-engine')
 
-module.exports = define({
+module.exports = defineUpDown({
   async up(queryInterface, dataTypes) {
     await queryInterface.createTable('table_name', {
       id: {

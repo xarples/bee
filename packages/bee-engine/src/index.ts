@@ -6,5 +6,5 @@ export { IEngineOptions } from './lib'
 
 export default {
   createEngine: lib.createEngine,
-  define: lib.define,
+  define: lib.defineUpDown,
 }

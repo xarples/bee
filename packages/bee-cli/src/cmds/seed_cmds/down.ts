@@ -1,4 +1,3 @@
-import path from 'path'
 import bee, { IEngineOptions } from '@xarples/bee-engine'
 import { Argv, Arguments } from 'yargs'
 
@@ -28,16 +27,8 @@ export const builder = function (yargs: Argv) {
 }
 
 export const handler = async function (argv: Arguments<IOptions>) {
-  const engine = bee.createEngine({
-    ...argv.bee,
-    migrationsPath:
-      argv.bee.migrationsPath || path.resolve(process.cwd(), 'seeds'),
-    storageOptions: {
-      path: path.resolve(process.cwd(), 'bee_seeds.json'),
-    },
-  })
-
+  const engine = bee.createEngine(argv.bee)
   const options = argv.to ? { to: argv.to } : undefined
 
-  await engine.revert(options)
+  await engine.seeds.revert(options)
 }

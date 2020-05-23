@@ -30,5 +30,5 @@ export const handler = async function (argv: Arguments<IOptions>) {
   const engine = bee.createEngine(argv.bee)
   const options = argv.to ? { to: argv.to } : undefined
 
-  await engine.revert(options)
+  await engine.migrations.revert(options)
 }
