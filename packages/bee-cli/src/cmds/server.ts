@@ -5,6 +5,7 @@ import bee from '@xarples/bee-server'
 
 interface IOptions {
   bee: IEngineOptions
+  port?: number
 }
 
 export const command = 'server'
@@ -14,11 +15,6 @@ export const desc = 'Start the rest api server'
 export const builder = function (yargs: Argv) {
   return yargs
     .options({
-      host: {
-        type: 'string',
-        desc: 'List pending seeds',
-        default: 'localhost',
-      },
       port: {
         type: 'number',
         desc: 'List pending seeds',
@@ -33,7 +29,7 @@ export const builder = function (yargs: Argv) {
 export const handler = function (argv: Arguments<IOptions>) {
   const server = bee.createServer(argv.bee)
 
-  server.listen(3000, () => {
+  server.listen(argv.port, () => {
     console.log('Server listening on http://localhost:3000')
   })
 }

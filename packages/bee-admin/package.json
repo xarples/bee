@@ -5,11 +5,10 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon",
-    "build": "nuxt-ts build; tsc --project server/tsconfig.json",
+    "dev": "nuxt-ts dev",
+    "build": "nuxt-ts build",
     "generate": "nuxt-ts generate",
-    "start": "NODE_ENV=production node ./dist/server/index.js",
-    "lint": "eslint --ext .ts,.js,.vue ."
+    "start": "NODE_ENV=production nuxt-ts start"
   },
   "bin": "",
   "repository": {
@@ -30,7 +29,6 @@
   },
   "devDependencies": {
     "@nuxt/types": "^0.7.5",
-    "@nuxt/typescript-build": "^0.6.6",
-    "@nuxtjs/eslint-config-typescript": "^1.0.2"
+    "@nuxt/typescript-build": "^0.6.6"
   }
 }

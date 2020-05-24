@@ -5,6 +5,8 @@ import execa from 'execa'
 
 interface IOptions {
   bee: IEngineOptions
+  port?: number
+  host?: string
 }
 
 export const command = 'admin'
@@ -30,19 +32,7 @@ export const builder = function (yargs: Argv) {
     .example('bee server --host localhost', 'Start the rest api server')
 }
 
-export const handler = async function (_: Arguments<IOptions>) {
-  const url = path.resolve(
-    __dirname,
-    '..',
-    '..',
-    'node_modules',
-    '@xarples',
-    'bee-admin',
-    'dist',
-    'server',
-    'index.js'
-  )
-
+export const handler = async function (argv: Arguments<IOptions>) {
   const execPath = path.resolve(
     __dirname,
     '..',
@@ -52,5 +42,5 @@ export const handler = async function (_: Arguments<IOptions>) {
     'bee-admin'
   )
 
-  await execa.node(url, undefined, { execPath })
+  await execa.command(`npm run dev -- --port ${argv.port}`, { cwd: execPath })
 }
