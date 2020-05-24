@@ -14,7 +14,11 @@ export default makeSchema({
   typegenAutoConfig: {
     sources: [
       {
-        source: path.resolve(__dirname, '..', 'types.ts'),
+        source: path.resolve(
+          __dirname.replace('dist', 'src'),
+          '..',
+          'types.ts'
+        ),
         alias: 't',
       },
     ],
