@@ -4,9 +4,7 @@
   "description": "Migration and seed tool",
   "private": true,
   "main": "index.js",
-  "scripts": {
-    "test": "ava"
-  },
+  "scripts": {},
   "bin": "",
   "repository": {
     "type": "git",

@@ -2,6 +2,13 @@
   "name": "@xarples/bee-cli",
   "version": "0.0.0",
   "description": "Migration and seed tool",
+  "files": [
+    "dist/*",
+    "bin/*"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc",
     "test": "ava"
