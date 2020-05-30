@@ -44,7 +44,7 @@ interface MigrationInterface {
 }
 
 type Mutation {
-  down(entity: EntityEnum!): DownMigrationResponse!
+  down(all: Boolean, entity: EntityEnum!): DownMigrationResponse!
   generate(fileName: String!, template: EntityEnum!): GenerateResponse!
   init: InitResponse!
   run(entity: EntityEnum!): RunMigrationResponse!

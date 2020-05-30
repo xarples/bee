@@ -24,7 +24,9 @@
   "homepage": "https://github.com/xarples/bee#readme",
   "dependencies": {
     "@nuxt/typescript-runtime": "^0.4.6",
+    "@nuxtjs/apollo": "^4.0.1-rc.1",
     "@xarples/wolfi-nuxt": "^0.0.24-alpha.0",
+    "graphql-tag": "^2.10.3",
     "nuxt": "^2.12.2"
   },
   "devDependencies": {

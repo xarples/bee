@@ -15,7 +15,14 @@ const config: Configuration = {
   },
   dev: process.env.NODE_ENV !== 'production',
   mode: 'universal',
-  modules: ['@xarples/wolfi-nuxt'],
+  modules: ['@xarples/wolfi-nuxt', '@nuxtjs/apollo'],
+  apollo: {
+    clientConfigs: {
+      default: {
+        httpEndpoint: 'http://localhost:4000',
+      },
+    },
+  },
 }
 
 export default config

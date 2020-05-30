@@ -111,6 +111,7 @@ export interface NexusGenFieldTypes {
 export interface NexusGenArgTypes {
   Mutation: {
     down: { // args
+      all?: boolean | null; // Boolean
       entity: NexusGenEnums['EntityEnum']; // EntityEnum!
     }
     generate: { // args

@@ -1,6 +1,12 @@
 /// <reference path="../../../generated.d.ts" />
 
-import { mutationField, objectType, arg, unionType } from '@nexus/schema'
+import {
+  mutationField,
+  objectType,
+  arg,
+  unionType,
+  booleanArg,
+} from '@nexus/schema'
 
 const DownResultResponse = unionType({
   name: 'DownResultResponse',
@@ -29,6 +35,7 @@ export const down = mutationField((t) => {
     type: DownMigrationResponse,
     args: {
       entity: arg({ type: 'EntityEnum', required: true }),
+      all: booleanArg(),
     },
     async resolve(_, args, context) {
       enum EntityEnum {
@@ -37,7 +44,10 @@ export const down = mutationField((t) => {
       }
 
       const currentEntity = EntityEnum[args.entity]
-      const result = await context.engine[currentEntity].revert()
+
+      const result = await context.engine[currentEntity].revert(
+        args.all ? { to: 0 } : undefined
+      )
 
       return {
         success: true,

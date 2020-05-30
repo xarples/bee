@@ -18,12 +18,11 @@ export const builder = function (yargs: Argv) {
       port: {
         type: 'number',
         desc: 'List pending seeds',
-        default: 3000,
+        default: 4000,
       },
     })
-    .example('bee server', 'Start the rest api server')
-    .example('bee server --port 3000', 'Start the rest api server')
-    .example('bee server --host localhost', 'Start the rest api server')
+    .example('bee server', 'Start the graphql server')
+    .example('bee server --port 3000', 'Start the graphql server on port 3000')
 }
 
 export const handler = function (argv: Arguments<IOptions>) {

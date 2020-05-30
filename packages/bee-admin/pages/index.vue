@@ -38,12 +38,6 @@
             <w-grid-row>
               <w-grid-column>
                 <w-text variant="h2">Manage your migrations</w-text>
-                <w-text variant="h6">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Nostrum, temporibus. Quos soluta rerum, eligendi qui velit
-                  earum, architecto distinctio voluptatem unde aut quidem?
-                  Praesentium autem explicabo.
-                </w-text>
               </w-grid-column>
             </w-grid-row>
 
@@ -58,19 +52,30 @@
                 </w-text>
               </w-grid-column>
               <w-grid-column auto>
-                <w-dropdown>
-                  <w-dropdown-trigger>
-                    <w-icon name="ellipsis-v" />
-                  </w-dropdown-trigger>
-                  <w-dropdown-list align="right">
-                    <w-dropdown-item>
-                      <nuxt-link to="/migrations/new">New migration</nuxt-link>
-                    </w-dropdown-item>
-                    <w-dropdown-item>Run pending migrations</w-dropdown-item>
-                  </w-dropdown-list>
-                </w-dropdown>
+                <w-button @click="runPendingMigrations">Run all</w-button>
               </w-grid-column>
             </w-grid-row>
+            <w-spacer></w-spacer>
+
+            <w-modal>
+              <w-modal-trigger>
+                <w-button variant="text" block>New migration</w-button>
+              </w-modal-trigger>
+              <w-modal-content color="primary" size="default">
+                <w-modal-header>
+                  <w-modal-title>Create a new migration</w-modal-title>
+                </w-modal-header>
+                <w-modal-body>
+                  <w-text variant="h6">
+                    <strong>Migration name:</strong>
+                  </w-text>
+                  <w-input v-model="migrationName" />
+                </w-modal-body>
+                <w-modal-footer>
+                  <w-button @click="createMigration(migrationName)">Save</w-button>
+                </w-modal-footer>
+              </w-modal-content>
+            </w-modal>
             <w-spacer></w-spacer>
 
             <w-card :shadow="false">
@@ -83,10 +88,13 @@
                     </w-table-row>
                   </w-table-header>
                   <w-table-body>
-                    <w-table-row v-for="item of [1, 2, 3]" :key="item">
-                      <w-table-body-cell>20200105152031-create-users</w-table-body-cell>
+                    <w-table-row v-for="migration of pendingMigrations" :key="migration.name">
+                      <w-table-body-cell>
+                        {{ migration.name }}
+                        <!-- <w-text color="warning">{{ migration.name }}</w-text> -->
+                      </w-table-body-cell>
                       <w-table-body-cell :style="{ justifyContent: 'flex-end' }">
-                        <w-button variant="text">Run</w-button>
+                        <!-- <w-button variant="text">Run</w-button> -->
                       </w-table-body-cell>
                     </w-table-row>
                   </w-table-body>
@@ -94,28 +102,18 @@
               </w-card-body>
             </w-card>
 
+            <w-spacer size="4x"></w-spacer>
+
+            <w-divider></w-divider>
             <w-spacer size="3x"></w-spacer>
 
             <w-grid-row>
               <w-grid-column>
                 <w-text variant="h4">Executed migrations</w-text>
-                <w-text variant="h6">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Nostrum, temporibus. Quos soluta rerum.
-                </w-text>
+                <w-text variant="h6">Lorem ipsum dolor sit amet consectetur adipisicing elit.</w-text>
               </w-grid-column>
               <w-grid-column auto>
-                <w-dropdown>
-                  <w-dropdown-trigger>
-                    <w-icon name="ellipsis-v" />
-                  </w-dropdown-trigger>
-                  <w-dropdown-list align="right">
-                    <w-dropdown-item
-                      v-for="item of ['Revert executed migrations']"
-                      :key="item"
-                    >{{ item }}</w-dropdown-item>
-                  </w-dropdown-list>
-                </w-dropdown>
+                <w-button @click="revertExecutedMigrations(true)">Revert all</w-button>
               </w-grid-column>
             </w-grid-row>
 
@@ -131,10 +129,20 @@
                     </w-table-row>
                   </w-table-header>
                   <w-table-body>
-                    <w-table-row v-for="item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" :key="item">
-                      <w-table-body-cell>20200105152031-create-users</w-table-body-cell>
+                    <w-table-row
+                      v-for="(migration, index) of executedMigrations"
+                      :key="migration.name"
+                    >
+                      <w-table-body-cell>
+                        {{ migration.name }}
+                        <!-- <w-text color="success">{{ migration.name }}</w-text> -->
+                      </w-table-body-cell>
                       <w-table-body-cell :style="{ justifyContent: 'flex-end' }">
-                        <w-button variant="text">Revert</w-button>
+                        <w-button
+                          v-if="(index + 1) === executedMigrations.length"
+                          variant="text"
+                          @click="revertExecutedMigrations(false)"
+                        >Revert</w-button>
                       </w-table-body-cell>
                     </w-table-row>
                   </w-table-body>
@@ -152,31 +160,92 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import gql from 'graphql-tag'
+
 export default Vue.extend({
+  // @ts-ignore
+  apollo: {
+    pendingMigrations: {
+      prefetch: true,
+      query: gql`
+        query pendingMigrations {
+          pendingMigrations: migrations(filter: pending) {
+            name
+          }
+        }
+      `,
+    },
+    executedMigrations: {
+      prefetch: true,
+      query: gql`
+        query executedMigrations {
+          executedMigrations: migrations(filter: executed) {
+            name
+          }
+        }
+      `,
+    },
+  },
   asyncData() {
     return {
-      migration: {
-        tableName: 'users',
-        fields: {
-          id: {
-            type: 'String',
-            primaryKey: true,
-          },
-          created_at: {
-            type: 'String',
-          },
-          updated_at: {
-            type: 'String',
-          },
-        },
-      },
-      selected: 'Select an option',
+      migrationName: '',
     }
   },
-  computed: {
-    migrationString() {
+  methods: {
+    createMigration(name: string) {
       // @ts-ignore
-      return JSON.stringify(this.migration, null, 2)
+      this.$apollo.mutate({
+        mutation: gql`
+          mutation generateMigration($fieldName: String!) {
+            generate(fileName: $fieldName, template: migration) {
+              success
+            }
+          }
+        `,
+        variables: {
+          fieldName: name,
+        },
+      })
+    },
+    runPendingMigrations() {
+      // @ts-ignore
+      this.$apollo.mutate({
+        mutation: gql`
+          mutation runPendingMigrations {
+            run(entity: migration) {
+              success
+              result {
+                ... on Migration {
+                  name
+                  type
+                }
+              }
+            }
+          }
+        `,
+      })
+    },
+    revertExecutedMigrations(all: boolean) {
+      console.log(all)
+      // @ts-ignore
+      this.$apollo.mutate({
+        mutation: gql`
+          mutation revertExecutedMigrations($all: Boolean) {
+            down(entity: migration, all: $all) {
+              success
+              result {
+                ... on Migration {
+                  name
+                  type
+                }
+              }
+            }
+          }
+        `,
+        variables: {
+          all: all ? true : false,
+        },
+      })
     },
   },
 })

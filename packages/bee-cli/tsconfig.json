@@ -3,7 +3,8 @@
   "compilerOptions": {
     "declaration": false,
     "outDir": "./dist",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "types": ["vue-apollo/types"]
   },
   "include": ["./src/**/*"]
 }
