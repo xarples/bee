@@ -1,6 +1,6 @@
 {
   "name": "@xarples/bee-server",
-  "version": "0.0.0",
+  "version": "0.0.1-alpha.0",
   "description": "",
   "main": "dist/lib/index.js",
   "scripts": {
@@ -26,7 +26,7 @@
   "homepage": "https://github.com/xarples/bee#readme",
   "dependencies": {
     "@nexus/schema": "^0.13.1",
-    "@xarples/bee-engine": "*",
+    "@xarples/bee-engine": "^0.0.1-alpha.0",
     "apollo-server": "^2.13.1",
     "express": "^4.17.1",
     "graphql": "^15.0.0"
