@@ -2,7 +2,6 @@
   "name": "@xarples/bee-admin",
   "version": "0.0.0",
   "description": "",
-  "private": true,
   "main": "index.js",
   "scripts": {
     "dev": "nuxt-ts dev",
