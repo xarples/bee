@@ -10,6 +10,9 @@
     "start": "NODE_ENV=production nuxt-ts start"
   },
   "bin": "",
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/xarples/bee.git"
@@ -31,5 +34,6 @@
   "devDependencies": {
     "@nuxt/types": "^0.7.5",
     "@nuxt/typescript-build": "^0.6.6"
-  }
+  },
+  "gitHead": "b24935ae8fd91fd3bc1dea9e643bcd5548209d63"
 }
