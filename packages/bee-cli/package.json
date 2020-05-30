@@ -7,7 +7,7 @@
     "test": "ava"
   },
   "bin": {
-    "bee": "dist/cli.js"
+    "bee": "bin/cli.js"
   },
   "repository": {
     "type": "git",

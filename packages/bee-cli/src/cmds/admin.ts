@@ -1,6 +1,8 @@
 import path from 'path'
 import { Argv, Arguments } from 'yargs'
 import { IEngineOptions } from '@xarples/bee-engine'
+import bee from '@xarples/bee-server'
+
 import execa from 'execa'
 
 interface IOptions {
@@ -36,9 +38,13 @@ export const handler = async function (argv: Arguments<IOptions>) {
     'bee-admin'
   )
 
-  const { stdout } = await execa.command(`npm run dev -- --port ${argv.port}`, {
-    cwd: execPath,
-  })
+  const server = bee.createServer(argv.bee)
 
-  console.log(stdout)
+  server.listen(4000, async () => {
+    console.log('Server listening on http://localhost:3000')
+
+    await execa.command(`npm run dev -- --port ${argv.port}`, {
+      cwd: execPath,
+    })
+  })
 }

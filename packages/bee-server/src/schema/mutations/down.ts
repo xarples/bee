@@ -46,7 +46,7 @@ export const down = mutationField((t) => {
       const currentEntity = EntityEnum[args.entity]
 
       const result = await context.engine[currentEntity].revert(
-        args.all ? { to: 0 } : undefined
+        args!.all ? { to: 0 } : undefined
       )
 
       return {
