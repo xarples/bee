@@ -43,7 +43,7 @@ export const handler = async function (argv: Arguments<IOptions>) {
   server.listen(4000, async () => {
     console.log('Server listening on http://localhost:3000')
 
-    await execa.command(`npm run dev -- --port ${argv.port}`, {
+    await execa.command(`npm start -- --port ${argv.port}`, {
       cwd: execPath,
     })
   })
