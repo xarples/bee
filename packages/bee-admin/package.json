@@ -10,6 +10,13 @@
     "start": "NODE_ENV=production nuxt-ts start"
   },
   "bin": "",
+  "files": [
+    "pages/*",
+    "apollo.config.js",
+    "nuxt.config.ts",
+    "tsconfig.json",
+    "vue-shim.d.ts"
+  ],
   "publishConfig": {
     "access": "public"
   },

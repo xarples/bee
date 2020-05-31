@@ -14,7 +14,7 @@
     "test": "ava"
   },
   "bin": {
-    "bee": "bin/cli.js"
+    "@xarples/bee-cli": "bin/cli.js"
   },
   "repository": {
     "type": "git",
