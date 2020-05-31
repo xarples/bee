@@ -36,11 +36,10 @@
     "@nuxtjs/apollo": "^4.0.1-rc.1",
     "@xarples/wolfi-nuxt": "^0.0.24-alpha.0",
     "graphql-tag": "^2.10.3",
-    "nuxt": "^2.12.2"
-  },
-  "devDependencies": {
+    "nuxt": "^2.12.2",
     "@nuxt/types": "^0.7.5",
     "@nuxt/typescript-build": "^0.6.6"
   },
+  "devDependencies": {},
   "gitHead": "b24935ae8fd91fd3bc1dea9e643bcd5548209d63"
 }
