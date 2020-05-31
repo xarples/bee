@@ -1,6 +1,6 @@
 {
   "name": "@xarples/bee-cli",
-  "version": "0.0.4-alpha.0",
+  "version": "0.0.5-alpha.0",
   "description": "Migration and seed tool",
   "files": [
     "dist/*",
@@ -32,7 +32,7 @@
   },
   "homepage": "https://github.com/xarples/bee#readme",
   "dependencies": {
-    "@xarples/bee-admin": "^0.0.4-alpha.0",
+    "@xarples/bee-admin": "^0.0.5-alpha.0",
     "@xarples/bee-engine": "^0.0.2-alpha.0",
     "@xarples/bee-server": "^0.0.2-alpha.0",
     "execa": "^4.0.1",
