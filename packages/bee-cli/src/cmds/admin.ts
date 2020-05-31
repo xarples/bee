@@ -30,7 +30,6 @@ export const builder = function (yargs: Argv) {
 
 export const handler = async function (argv: Arguments<IOptions>) {
   const execPath = path.resolve(__dirname, '..', '..', '..', 'bee-admin')
-
   const server = bee.createServer(argv.bee)
 
   server.listen(4000, async () => {
